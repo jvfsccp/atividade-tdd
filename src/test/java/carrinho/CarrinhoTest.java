@@ -1,6 +1,7 @@
 package carrinho;
 
 import carrinho.exception.EstoqueInsuficienteException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -8,15 +9,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CarrinhoTest {
 
+    private Carrinho carrinho;
+
+    @BeforeEach
+    void setUp() {
+        carrinho = new Carrinho();
+    }
+
     @Test
     void carrinhoVazioTemTotalZero() {
-        Carrinho carrinho = new Carrinho();
         assertEquals(0.0, carrinho.calcularTotal());
     }
 
     @Test
     void adicionarItemAumentaTotalPeloValorDePrecoVezesQuantidade() throws EstoqueInsuficienteException {
-        Carrinho carrinho = new Carrinho();
         Produto produto = new Produto("Caneta", 2.50, 10);
 
         carrinho.adicionarItem(produto, 3);
@@ -26,7 +32,6 @@ class CarrinhoTest {
 
     @Test
     void adicionarItemComQuantidadeMaiorQueEstoqueLancaExcecao() {
-        Carrinho carrinho = new Carrinho();
         Produto produto = new Produto("Caneta", 2.50, 5);
 
         assertThrows(EstoqueInsuficienteException.class,
@@ -35,7 +40,6 @@ class CarrinhoTest {
 
     @Test
     void removerItemReduzTotalCorretamente() throws EstoqueInsuficienteException {
-        Carrinho carrinho = new Carrinho();
         Produto produto = new Produto("Caneta", 2.50, 5);
         carrinho.adicionarItem(produto, 2);
 

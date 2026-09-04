@@ -22,10 +22,8 @@ public class Carrinho {
     }
 
     public double calcularTotal() {
-        double total = 0.0;
-        for (ItemCarrinho item : itens) {
-            total += item.calcularSubtotal();
-        }
-        return total;
+        return itens.stream()
+            .mapToDouble(ItemCarrinho::calcularSubtotal)
+            .sum();
     }
 }
