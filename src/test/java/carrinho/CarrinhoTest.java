@@ -2,6 +2,7 @@ package carrinho;
 
 import carrinho.exception.CarrinhoVazioException;
 import carrinho.exception.CupomJaAplicadoException;
+import carrinho.exception.DescontoInvalidoException;
 import carrinho.exception.EstoqueInsuficienteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,5 +75,14 @@ class CarrinhoTest {
     @Test
     void finalizarCompraComCarrinhoVazioLancaExcecao() {
         assertThrows(CarrinhoVazioException.class, () -> carrinho.finalizarCompra());
+    }
+
+    @Test
+    void aplicarCupomQueTornariaTotalNegativoLancaExcecao() throws EstoqueInsuficienteException {
+        Produto produto = new Produto("Caneta", 10.0, 5);
+        carrinho.adicionarItem(produto, 1);
+        Cupom cupom = new Cupom("SUPER150", 150);
+
+        assertThrows(DescontoInvalidoException.class, () -> carrinho.aplicarCupom(cupom));
     }
 }
