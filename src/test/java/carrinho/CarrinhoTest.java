@@ -32,4 +32,15 @@ class CarrinhoTest {
         assertThrows(EstoqueInsuficienteException.class,
             () -> carrinho.adicionarItem(produto, 10));
     }
+
+    @Test
+    void removerItemReduzTotalCorretamente() throws EstoqueInsuficienteException {
+        Carrinho carrinho = new Carrinho();
+        Produto produto = new Produto("Caneta", 2.50, 5);
+        carrinho.adicionarItem(produto, 2);
+
+        carrinho.removerItem(produto);
+
+        assertEquals(0.0, carrinho.calcularTotal(), 0.0001);
+    }
 }
