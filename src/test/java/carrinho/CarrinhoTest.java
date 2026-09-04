@@ -1,5 +1,6 @@
 package carrinho;
 
+import carrinho.exception.CarrinhoVazioException;
 import carrinho.exception.CupomJaAplicadoException;
 import carrinho.exception.EstoqueInsuficienteException;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,5 +1,6 @@
 package carrinho;
 
+import carrinho.exception.CarrinhoVazioException;
 import carrinho.exception.CupomJaAplicadoException;
 import carrinho.exception.EstoqueInsuficienteException;
 
@@ -29,6 +30,12 @@ public class Carrinho {
                 "O cupom " + cupom.getCodigo() + " ja foi aplicado a este carrinho.");
         }
         cuponsAplicados.add(cupom);
+    }
+
+    public void finalizarCompra() throws CarrinhoVazioException {
+        if (itens.isEmpty()) {
+            throw new CarrinhoVazioException("Nao e possivel finalizar a compra de um carrinho vazio.");
+        }
     }
 
     public double calcularTotal() {
