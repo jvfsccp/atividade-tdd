@@ -2,6 +2,7 @@ package carrinho;
 
 import carrinho.exception.CarrinhoVazioException;
 import carrinho.exception.CupomJaAplicadoException;
+import carrinho.exception.DescontoInvalidoException;
 import carrinho.exception.EstoqueInsuficienteException;
 
 import java.util.ArrayList;
@@ -24,10 +25,15 @@ public class Carrinho {
         itens.removeIf(item -> item.getProduto() == produto);
     }
 
-    public void aplicarCupom(Cupom cupom) throws CupomJaAplicadoException {
+    public void aplicarCupom(Cupom cupom) throws CupomJaAplicadoException, DescontoInvalidoException {
         if (cuponsAplicados.contains(cupom)) {
             throw new CupomJaAplicadoException(
                 "O cupom " + cupom.getCodigo() + " ja foi aplicado a este carrinho.");
+        }
+        double percentualComNovoCupom = calcularPercentualDesconto() + cupom.getPercentualDesconto();
+        if (percentualComNovoCupom > 100) {
+            throw new DescontoInvalidoException(
+                "O cupom " + cupom.getCodigo() + " tornaria o total do carrinho negativo.");
         }
         cuponsAplicados.add(cupom);
     }

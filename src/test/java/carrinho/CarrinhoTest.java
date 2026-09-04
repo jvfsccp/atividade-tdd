@@ -52,7 +52,8 @@ class CarrinhoTest {
     }
 
     @Test
-    void aplicarCupomValidoReduzTotalPeloPercentual() throws EstoqueInsuficienteException, CupomJaAplicadoException {
+    void aplicarCupomValidoReduzTotalPeloPercentual()
+            throws EstoqueInsuficienteException, CupomJaAplicadoException, DescontoInvalidoException {
         Produto produto = new Produto("Caneta", 10.0, 5);
         carrinho.adicionarItem(produto, 2);
         Cupom cupom = new Cupom("DESC10", 10);
@@ -63,7 +64,8 @@ class CarrinhoTest {
     }
 
     @Test
-    void aplicarMesmoCupomDuasVezesLancaExcecao() throws EstoqueInsuficienteException, CupomJaAplicadoException {
+    void aplicarMesmoCupomDuasVezesLancaExcecao()
+            throws EstoqueInsuficienteException, CupomJaAplicadoException, DescontoInvalidoException {
         Produto produto = new Produto("Caneta", 10.0, 5);
         carrinho.adicionarItem(produto, 2);
         Cupom cupom = new Cupom("DESC10", 10);
