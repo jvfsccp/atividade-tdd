@@ -17,6 +17,10 @@ public class Carrinho {
         itens.add(new ItemCarrinho(produto, quantidade));
     }
 
+    public void removerItem(Produto produto) {
+        itens.removeIf(item -> item.getProduto() == produto);
+    }
+
     public double calcularTotal() {
         double total = 0.0;
         for (ItemCarrinho item : itens) {
