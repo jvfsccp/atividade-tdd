@@ -39,12 +39,18 @@ public class Carrinho {
     }
 
     public double calcularTotal() {
-        double subtotal = itens.stream()
+        return calcularSubtotalItens() * (1 - calcularPercentualDesconto() / 100);
+    }
+
+    private double calcularSubtotalItens() {
+        return itens.stream()
             .mapToDouble(ItemCarrinho::calcularSubtotal)
             .sum();
-        double percentualTotalDesconto = cuponsAplicados.stream()
+    }
+
+    private double calcularPercentualDesconto() {
+        return cuponsAplicados.stream()
             .mapToDouble(Cupom::getPercentualDesconto)
             .sum();
-        return subtotal * (1 - percentualTotalDesconto / 100);
     }
 }
