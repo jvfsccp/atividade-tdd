@@ -1,5 +1,6 @@
 package carrinho;
 
+import carrinho.exception.CupomJaAplicadoException;
 import carrinho.exception.EstoqueInsuficienteException;
 
 import java.util.ArrayList;
@@ -22,7 +23,11 @@ public class Carrinho {
         itens.removeIf(item -> item.getProduto() == produto);
     }
 
-    public void aplicarCupom(Cupom cupom) {
+    public void aplicarCupom(Cupom cupom) throws CupomJaAplicadoException {
+        if (cuponsAplicados.contains(cupom)) {
+            throw new CupomJaAplicadoException(
+                "O cupom " + cupom.getCodigo() + " ja foi aplicado a este carrinho.");
+        }
         cuponsAplicados.add(cupom);
     }
 
