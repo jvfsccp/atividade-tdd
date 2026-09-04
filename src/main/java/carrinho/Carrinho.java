@@ -8,6 +8,7 @@ import java.util.List;
 public class Carrinho {
 
     private final List<ItemCarrinho> itens = new ArrayList<>();
+    private final List<Cupom> cuponsAplicados = new ArrayList<>();
 
     public void adicionarItem(Produto produto, int quantidade) throws EstoqueInsuficienteException {
         if (quantidade > produto.getEstoque()) {
@@ -21,9 +22,17 @@ public class Carrinho {
         itens.removeIf(item -> item.getProduto() == produto);
     }
 
+    public void aplicarCupom(Cupom cupom) {
+        cuponsAplicados.add(cupom);
+    }
+
     public double calcularTotal() {
-        return itens.stream()
+        double subtotal = itens.stream()
             .mapToDouble(ItemCarrinho::calcularSubtotal)
             .sum();
+        double percentualTotalDesconto = cuponsAplicados.stream()
+            .mapToDouble(Cupom::getPercentualDesconto)
+            .sum();
+        return subtotal * (1 - percentualTotalDesconto / 100);
     }
 }
