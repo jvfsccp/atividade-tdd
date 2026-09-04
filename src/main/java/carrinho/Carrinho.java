@@ -1,5 +1,7 @@
 package carrinho;
 
+import carrinho.exception.EstoqueInsuficienteException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,11 @@ public class Carrinho {
 
     private final List<ItemCarrinho> itens = new ArrayList<>();
 
-    public void adicionarItem(Produto produto, int quantidade) {
+    public void adicionarItem(Produto produto, int quantidade) throws EstoqueInsuficienteException {
+        if (quantidade > produto.getEstoque()) {
+            throw new EstoqueInsuficienteException(
+                "Estoque insuficiente para o produto " + produto.getNome() + ".");
+        }
         itens.add(new ItemCarrinho(produto, quantidade));
     }
 
